@@ -8,6 +8,7 @@
         <th>Name</th>
         <th>Status</th>
         <th>Species</th>
+        <th>Gender</th>
     </tr>
 
     @foreach (var c in Model)
@@ -16,6 +17,7 @@
             <td><img src="@c.Image" width="80" /></td>
             <td>@c.Name</td>
             <td>@c.Status</td>
+            <td>@c.Gender</td>
             <td>@c.Species</td>
         </tr>
     }
