@@ -1,24 +1,108 @@
-﻿@model List<RickAndMortyApp.Models.Character>
+﻿@model RickAndMortyApp.Models.CharacterListViewModel
+<h1>Rick and Morty - Characters</h1>
 
-<h1>Rick & Morty Characters</h1>
+<form method="get" asp-controller="Characters" asp-action="Index" class="mb-4">
 
-<table border="1" cellpadding="6" style="border-collapse: collapse;">
-    <tr>
-        <th>Image</th>
-        <th>Name</th>
-        <th>Status</th>
-        <th>Species</th>
-        <th>Gender</th>
-    </tr>
+    <label>Status:</label>
+    <select name="status" class="form-select" style="width:200px; display:inline-block;">
+        <option value="">-- All --</option>
 
-    @foreach (var c in Model)
-    {
+        <option value="alive" selected="@(Model.Status == "alive")">Alive</option>
+        <option value="dead" selected="@(Model.Status == "dead")">Dead</option>
+        <option value="unknown" selected="@(Model.Status == "unknown")">Unknown</option>
+    </select>
+
+    <label>Species:</label>
+    <select name="species" class="form-select" style="width:200px; display:inline-block;">
+        <option value="">-- All --</option>
+
+        <option value="human" selected="@(Model.Status == "human")">Alive</option>
+        <option value="alien" selected="@(Model.Status == "alien")">Dead</option>
+        <option value="unknown" selected="@(Model.Status == "unknown")">Unknown</option>
+    </select>
+
+    <label>Gender:</label>
+    <select name="gender" class="form-select" style="width:200px; display:inline-block;">
+        <option value="">-- All --</option>
+
+        <option value="male" selected="@(Model.Status == "male")">Alive</option>
+        <option value="female" selected="@(Model.Status == "female")">Dead</option>
+        <option value="unknown" selected="@(Model.Status == "unknown")">Unknown</option>
+    </select>
+
+    <label class="ms-3">Name:</label>
+    <input type="text" name="name" value="@Model.Name" class="form-control" style="width:200px; display:inline-block;" />
+
+    <button type="submit" class="btn btn-primary ms-3">Filter</button>
+</form>
+
+<table class="table table-bordered">
+    <thead>
         <tr>
-            <td><img src="@c.Image" width="80" /></td>
-            <td>@c.Name</td>
-            <td>@c.Status</td>
-            <td>@c.Gender</td>
-            <td>@c.Species</td>
+            <th>Image</th>
+            <th>Name</th>
+            <th>Status</th>
+            <th>Species</th>
+            <th>Gender</th>
         </tr>
-    }
+    </thead>
+    <tbody>
+        @foreach (var c in Model.Characters)
+        {
+            <tr>
+                <td><img src="@c.Image" width="80" /></td>
+                <td>@c.Name</td>
+                <td>@c.Status</td>
+                <td>@c.Species</td>
+                <td>@c.Gender</td>
+            </tr>
+        }
+    </tbody>
 </table>
+
+
+
+<nav>
+    <ul class="pagination">
+
+        @if (Model.Page > 1)
+        {
+            <li class="page-item">
+                <a class="page-link"
+                   asp-action="Index"
+                   asp-route-page="@(Model.Page - 1)"
+                   asp-route-status="@Model.Status"
+                   asp-route-name="@Model.Name">
+                    Previous
+                </a>
+            </li>
+        }
+
+        @for (int i = 1; i <= Model.TotalPages; i++)
+        {
+            <li class="page-item @(i == Model.Page ? "active" : "")">
+                <a class="page-link"
+                   asp-action="Index"
+                   asp-route-page="@i"
+                   asp-route-status="@Model.Status"
+                   asp-route-name="@Model.Name">
+                    @i
+                </a>
+            </li>
+        }
+
+        @if (Model.Page < Model.TotalPages)
+        {
+            <li class="page-item">
+                <a class="page-link"
+                   asp-action="Index"
+                   asp-route-page="@(Model.Page + 1)"
+                   asp-route-status="@Model.Status"
+                   asp-route-name="@Model.Name">
+                    Next
+                </a>
+            </li>
+        }
+
+    </ul>
+</nav>
