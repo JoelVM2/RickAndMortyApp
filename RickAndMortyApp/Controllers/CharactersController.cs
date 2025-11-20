@@ -18,7 +18,7 @@ namespace RickAndMortyApp.Controllers
                 if (!string.IsNullOrEmpty(status)) queryParams.Add($"status={status}");
                 if (!string.IsNullOrEmpty(name)) queryParams.Add($"name={name}");
                 if(!string.IsNullOrEmpty(species)) queryParams.Add($"species={species}");
-                if (!string.IsNullOrEmpty(gender)) queryParams.Add($"species={gender}");
+                if (!string.IsNullOrEmpty(gender)) queryParams.Add($"gender={gender}");
                 queryParams.Add($"page={page}");
 
                 string url = BaseUrl + "?" + string.Join("&", queryParams);

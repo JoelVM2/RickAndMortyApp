@@ -3,6 +3,9 @@
 
 <form method="get" asp-controller="Characters" asp-action="Index" class="mb-4">
 
+    <label class="ms-3">Name:</label>
+    <input type="text" name="name" value="@Model.Name" class="form-control" style="width:200px; display:inline-block;" />
+
     <label>Status:</label>
     <select name="status" class="form-select" style="width:200px; display:inline-block;">
         <option value="">-- All --</option>
@@ -16,22 +19,25 @@
     <select name="species" class="form-select" style="width:200px; display:inline-block;">
         <option value="">-- All --</option>
 
-        <option value="human" selected="@(Model.Status == "human")">Alive</option>
-        <option value="alien" selected="@(Model.Status == "alien")">Dead</option>
-        <option value="unknown" selected="@(Model.Status == "unknown")">Unknown</option>
+        <option value="human" selected="@(Model.Species == "human")">Human</option>
+        <option value="humanoid" selected="@(Model.Species == "humanoid")">Humanoid</option>
+        <option value="robot" selected="@(Model.Species == "robot")">Robot</option>
+        <option value="cronenberg" selected="@(Model.Species == "cronenberg	")">Cronenberg	</option>
+        <option value="Disease" selected="@(Model.Species == "disease	")">Disease	</option>
+        <option value="alien" selected="@(Model.Species == "alien")">Alien</option>
+        <option value="poopybutthole" selected="@(Model.Species == "poopybuthole")">Poopybutthole</option>
+        <option value="mythological creature" selected="@(Model.Species == "mythological creature")">Mythological Creature</option>
+        <option value="unknown" selected="@(Model.Species == "unknown")">Unknown</option>
     </select>
 
     <label>Gender:</label>
     <select name="gender" class="form-select" style="width:200px; display:inline-block;">
         <option value="">-- All --</option>
 
-        <option value="male" selected="@(Model.Status == "male")">Alive</option>
-        <option value="female" selected="@(Model.Status == "female")">Dead</option>
-        <option value="unknown" selected="@(Model.Status == "unknown")">Unknown</option>
+        <option value="male" selected="@(Model.Gender == "male")">Male</option>
+        <option value="female" selected="@(Model.Gender == "female")">Female</option>
+        <option value="unknown" selected="@(Model.Gender == "unknown")">Unknown</option>
     </select>
-
-    <label class="ms-3">Name:</label>
-    <input type="text" name="name" value="@Model.Name" class="form-control" style="width:200px; display:inline-block;" />
 
     <button type="submit" class="btn btn-primary ms-3">Filter</button>
 </form>
@@ -77,8 +83,25 @@
                 </a>
             </li>
         }
+        
 
-        @for (int i = 1; i <= Model.TotalPages; i++)
+        @{
+            int maxPages = 10;
+            int half = maxPages / 2;
+
+            int start = Model.Page - half;
+            if (start < 1) start = 1;
+
+            int end = start + maxPages - 1;
+            if (end > Model.TotalPages) end = Model.TotalPages;
+
+            if (end - start < maxPages - 1)
+            {
+                start = Math.Max(1, end - maxPages + 1);
+            }
+        }
+
+        @for (int i = start; i <= end; i++)
         {
             <li class="page-item @(i == Model.Page ? "active" : "")">
                 <a class="page-link"
