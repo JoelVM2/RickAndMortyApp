@@ -1,8 +1,8 @@
 ﻿@model RickAndMortyApp.Models.CharacterListViewModel
 <h1>Rick and Morty - Characters</h1>
 
+<!-- Formulario para los filtros -->
 <form method="get" asp-controller="Characters" asp-action="Index" class="mb-4">
-
     <label class="ms-3">Name:</label>
     <input type="text" name="name" value="@Model.Name" class="form-control" style="width:200px; display:inline-block;" />
 
@@ -42,6 +42,7 @@
     <button type="submit" class="btn btn-primary ms-3">Filter</button>
 </form>
 
+<!-- Estructura de la tabla -->
 <table class="table table-bordered">
     <thead>
         <tr>
@@ -84,7 +85,7 @@
             </li>
         }
         
-
+        <!-- Paginación con límite de 10 páginas visibles -->
         @{
             int maxPages = 10;
             int half = maxPages / 2;
