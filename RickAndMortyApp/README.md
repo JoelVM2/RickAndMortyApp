@@ -63,7 +63,7 @@ Una aplicación web en ASP.NET Core MVC que consume la [API de Rick and Morty](h
 
 ## Notas técnicas
 
-- La API utilizada: Rick and Morty .
+- La API utilizada: Rick and Morty.
 - El proyecto está hecho en ASP.NET Core MVC.
 - Se usa HttpClient para las llamadas a la API y Newtonsoft.Json para la deserialización.
 - La vista utiliza Bootstrap para un diseño simple y responsivo.
